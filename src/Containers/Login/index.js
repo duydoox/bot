@@ -11,22 +11,24 @@ const Login = () => {
   const { NavigationTheme, Common, Gutters, Layout, Fonts, Images, Colors } = useTheme()
   const { colors } = NavigationTheme
   const [isSecurity, setIsSecurity] = useState(true)
-  const [account, setAcount] = useState({value: '', message: ''})
-  const [password, setPassword] = useState({value: '', message: ''})
+  const [account, setAcount] = useState({value: '', message: null})
+  const [password, setPassword] = useState({value: '', message: null})
   const dispatch = useDispatch()
 
-  const checkEmpty = (value, setValue, mes)=>{
-    // if(value.length === 0) {
-    //   setValue({...value, message: mes})
-    //   return true
-    // }
-    // return false
+  const checkEmpty = (value, setValue, message)=>{
+    if(value.trim() === '') {
+      setValue(pre=>{
+        return {...pre, message}
+      })
+      return true
+    }
+    return false
   }
 
   const submit = () => {
-    // const accEmpty = checkEmpty(account.value, setAcount, 'account empty')
-    // const passEmpty = checkEmpty(password.value, setPassword, 'password empty')
-    // if(accEmpty || passEmpty) return
+    const accEmpty = checkEmpty(account.value, setAcount, 'account is empty')
+    const passEmpty = checkEmpty(password.value, setPassword, 'password is empty')
+    if(accEmpty || passEmpty) return
     dispatch(login(true))
     navigateAndSimpleReset('Main')
   }
@@ -59,7 +61,7 @@ const Login = () => {
             minHeight: 50
           }}
           value={account.value}
-          onChangeText={text=>setAcount({value: text, message: ''})}
+          onChangeText={text=>setAcount({value: text, message: null})}
           message = {account.message}
         />
         <FormInput
@@ -75,7 +77,7 @@ const Login = () => {
           }}
           secureTextEntry={isSecurity}
           value={password.value}
-          onChangeText={text=>setPassword({value: text, message: ''})}
+          onChangeText={text=>setPassword({value: text, message: null})}
           message = {password.message}
         >
           <TouchableOpacity onPress={() => { setIsSecurity(!isSecurity) }}>

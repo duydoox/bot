@@ -11,22 +11,25 @@ const FormInput = ({
     styleInput = {},
     value,
     secureTextEntry = false,
-    message = '',
+    message,
     styleMessage = {}
 }) => {
     const { Layout } = useTheme()
     const { color = '#fff', fontSize = 17 } = styleInput
     return (
         <View style={[
-            {marginBottom: 5},
+            { marginBottom: 5 },
             style
         ]}>
+            {/* Label */}
             <Text style={[
                 {
                     fontSize: 14
                 },
                 styleLabel
             ]}>{label}</Text>
+
+            {/* Form input */}
             <View style={[
                 Layout.rowCenter,
                 {
@@ -44,15 +47,21 @@ const FormInput = ({
                     onChangeText={onChangeText}
                     value={value && value}
                     secureTextEntry={secureTextEntry} />
+                {/* other */}
                 {children}
             </View>
-            {/* <Text
-                style={[
-                    {color: 'red', fontSize: '12'},
-                    styleMessage
-                ]}>
-                {message}
-            </Text> */}
+            {/* message */}
+            {
+                message &&
+                <Text
+                    style={[
+                        { color: 'red', fontSize: 14 },
+                        styleMessage
+                    ]}
+                >
+                    {message}
+                </Text>
+            }
         </View>
     )
 }
