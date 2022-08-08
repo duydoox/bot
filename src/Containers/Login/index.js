@@ -1,5 +1,5 @@
 import { Text, View, Image, TouchableOpacity, StatusBar } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useTheme } from '@/Hooks'
 import { navigateAndSimpleReset } from '@/Navigators/utils'
 import { useState } from 'react'
@@ -13,6 +13,7 @@ const Login = () => {
   const [isSecurity, setIsSecurity] = useState(true)
   const [account, setAcount] = useState({value: '', message: null})
   const [password, setPassword] = useState({value: '', message: null})
+  const refPas = useRef()
   const dispatch = useDispatch()
 
   const checkEmpty = (value, setValue, message)=>{
@@ -31,6 +32,10 @@ const Login = () => {
     if(accEmpty || passEmpty) return
     dispatch(login(true))
     navigateAndSimpleReset('Main')
+  }
+
+  const nextFocus = () => {
+
   }
 
   return (
@@ -61,8 +66,12 @@ const Login = () => {
             minHeight: 50
           }}
           value={account.value}
-          onChangeText={text=>setAcount({value: text, message: null})}
           message = {account.message}
+          onChangeText={text=>setAcount({value: text, message: null})}
+          // onKeyPress={e => { 
+          //   console.log(e.nativeEvent.key)
+          //   e.nativeEvent.key === 'Enter' && refPas.current.focus()}
+          // }          
         />
         <FormInput
           label='Mật khẩu'
@@ -77,8 +86,9 @@ const Login = () => {
           }}
           secureTextEntry={isSecurity}
           value={password.value}
-          onChangeText={text=>setPassword({value: text, message: null})}
           message = {password.message}
+          onChangeText={text=>setPassword({value: text, message: null})}
+          refInput= {refPas}
         >
           <TouchableOpacity onPress={() => { setIsSecurity(!isSecurity) }}>
             <Image source={Images.eye} resizeMode={'contain'} />

@@ -12,7 +12,9 @@ const FormInput = ({
     value,
     secureTextEntry = false,
     message,
-    styleMessage = {}
+    styleMessage = {},
+    refInput = null,
+    onKeyPress=()=>{}
 }) => {
     const { Layout } = useTheme()
     const { color = '#fff', fontSize = 17 } = styleInput
@@ -45,8 +47,11 @@ const FormInput = ({
                 <TextInput
                     style={[{ paddingHorizontal: 8, color: color, fontSize: fontSize, flex: 1 }]}
                     onChangeText={onChangeText}
+                    onKeyPress={onKeyPress}
                     value={value && value}
-                    secureTextEntry={secureTextEntry} />
+                    secureTextEntry={secureTextEntry}
+                    ref={refInput}
+                />
                 {/* other */}
                 {children}
             </View>
@@ -55,7 +60,7 @@ const FormInput = ({
                 message &&
                 <Text
                     style={[
-                        { color: 'red', fontSize: 14 },
+                        { color: 'red', fontSize: 16 },
                         styleMessage
                     ]}
                 >
