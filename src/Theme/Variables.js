@@ -24,6 +24,10 @@ export const Colors = {
   text: '#000000',
   white: '#fff',
 
+  textProfit: '#1FA808',
+  textLoss: '#D31515',
+  titleBet: '#D19804', 
+
   tabBarFocused: '#858585',
   success: '#28a745',
   error: '#dc3545',

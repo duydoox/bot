@@ -1,0 +1,16 @@
+import { useTheme } from "@/Hooks"
+import { StyleSheet } from "react-native"
+import { useMemo } from "react"
+
+export const useStyles = () => {
+    const theme = useTheme()
+    return useMemo(()=>{
+        const { Images, Colors } = theme
+        return StyleSheet.create({
+            marketCap: {
+                color: Colors.textLoss
+            },
+            Images
+        })
+    }, [theme])
+}

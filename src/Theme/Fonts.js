@@ -26,17 +26,17 @@ export default function ({ FontSize, Colors }) {
     titleSmall: {
       fontSize: FontSize.small,
       fontWeight: 'bold',
-      color: Colors.text,
+      color: Colors.primary,
     },
     titleRegular: {
       fontSize: FontSize.regular,
       fontWeight: 'bold',
-      color: Colors.text,
+      color: Colors.primary,
     },
     titleLarge: {
       fontSize: FontSize.large,
       fontWeight: 'bold',
-      color: Colors.text,
+      color: Colors.primary,
     },
     textCenter: {
       textAlign: 'center',
@@ -50,5 +50,29 @@ export default function ({ FontSize, Colors }) {
     textRight: {
       textAlign: 'right',
     },
+//
+    textProfit: {
+      fontSize: FontSize.small,
+      color: Colors.textProfit
+    },
+    textLoss: {
+      fontSize: FontSize.small,
+      color: Colors.textLoss
+    },
+    titleProfit: {
+      fontSize: FontSize.small,
+      color: Colors.textProfit,
+      fontWeight: 'bold'
+    },
+    titleLoss: {
+      fontSize: FontSize.small,
+      color: Colors.textLoss,
+      fontWeight: 'bold'
+    },
+    titleBet: {
+      fontSize: FontSize.small,
+      color: Colors.titleBet,
+      fontWeight: 'bold'
+    }
   })
 }

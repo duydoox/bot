@@ -38,3 +38,11 @@ export const navigateAndSimpleReset = (name, index = 0) => {
     )
   }
 }
+
+export const goback = () => {
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(
+      CommonActions.goBack(),
+    )
+  }
+}

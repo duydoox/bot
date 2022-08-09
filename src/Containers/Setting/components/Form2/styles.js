@@ -17,6 +17,16 @@ export const styles = () => {
         text: {
             ...Fonts.textRegular
         },
+        auto: {
+            backgroundColor: '#2A6FB0',
+            borderRadius: 30,
+            padding: 3,
+            height: 38,
+            width: 110,
+            overflow: 'hidden',
+            ...Layout.rowCenter,
+            // flexDirection: 'row-reverse'
+        },
         btn: {
             backgroundColor: '#D9D9D9',
             borderRadius: 5,

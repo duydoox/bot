@@ -5,9 +5,9 @@ export const styles = () => {
     const { Fonts, Colors, Layout } = useTheme()
     return StyleSheet.create({
         container: {
-            paddingHorizontal: 15,
-            flex: 1
-            // backgroundColor: 'red'
+            paddingHorizontal: 10,
+            flex: 1,
+            paddingBottom: 15 
         },
         form: {
             borderRadius: 10,
@@ -15,15 +15,6 @@ export const styles = () => {
             borderWidth: 1,
             borderColor: Colors.formBorder
         },
-        // buttonUpdate: {
-        //     color: 'white',
-        //     fontSize: 14,
-        //     backgroundColor: Colors.primary,
-        //     borderRadius: 5,
-        //     width: 159,
-        //     height: 28,
-        //     fontWeight: 'normal'
-        // },
         text: {
             ...Fonts.textRegular
         },

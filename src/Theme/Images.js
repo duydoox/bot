@@ -11,5 +11,8 @@ export default function () {
     Setting: require('@/Assets/Images/Setting.png'),
     User: require('@/Assets/Images/User.png'),
     eye: require('@/Assets/Images/eye.png'),
+    next: require('@/Assets/Images/next.png'),
+    marketIcon: require('@/Assets/Images/marketIcon.png'),
+    goback: require('@/Assets/Images/goback.png'),
   }
 }
