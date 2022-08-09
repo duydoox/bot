@@ -8,6 +8,7 @@ const Icon = ({
     height = 100,
     width = 100,
     backgroundColor = '#fff',
+    style={},
     onPress = ()=>{}
 }) => {
     const { Layout, Images } = useTheme()
@@ -17,7 +18,8 @@ const Icon = ({
             width,
             backgroundColor,
             borderRadius: 100,
-            ...Layout.center
+            ...Layout.center,
+            ...style
         }}
         onPress={onPress}>
             <Image source={Images[name]} resizeMode='contain' />

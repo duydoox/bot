@@ -14,5 +14,9 @@ export default function () {
     next: require('@/Assets/Images/next.png'),
     marketIcon: require('@/Assets/Images/marketIcon.png'),
     goback: require('@/Assets/Images/goback.png'),
+    avatar: require('@/Assets/Images/avatar.png'),
+    i: require('@/Assets/Images/i.png'),
+    key: require('@/Assets/Images/key.png'),
+    logout: require('@/Assets/Images/logout.png'),
   }
 }

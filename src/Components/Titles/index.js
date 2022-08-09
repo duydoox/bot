@@ -2,17 +2,17 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/Hooks'
 
-const Texts = ({ children, style, color, ...other }) => {
+const Titles = ({ children, style, color, ...other }) => {
     const { Fonts, Colors } = useTheme()
     return (
         <Text style={[
-            Fonts.textSmall,
-            {color: color?color:Colors.primary},
+            Fonts.titleSmall,
             style,
+            {color: color?color:Colors.primary},
         ]} {...other}>
             {children}
         </Text>
     )
 }
 
-export default Texts
+export default Titles
