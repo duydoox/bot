@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Graph from '@/Components/Graph'
+import GraphPage from '@/Components/GraphPage'
 
 const NoBetGraph = () => {
   return (
-    <Graph>
+    <GraphPage>
       <Text>NoBetGraph</Text>
-    </Graph>
+    </GraphPage>
   )
 }
 

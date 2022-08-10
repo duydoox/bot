@@ -25,7 +25,7 @@ const Result = () => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.title}>
         <Button title='Đã có kết quả'
           style={[styles.titleButton, setStyleBtn(true),]}

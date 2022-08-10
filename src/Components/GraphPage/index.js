@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { changeGraph } from '@/Store/Market'
 
-const Graph = ({ children }) => {
+const GraphPage = ({ children }) => {
     const dispatch = useDispatch()
     return (
         <View style={styles.container}>
@@ -21,7 +21,7 @@ const Graph = ({ children }) => {
     )
 }
 
-export default Graph
+export default GraphPage
 
 const styles = StyleSheet.create({
     container: {
