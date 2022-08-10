@@ -18,14 +18,14 @@ const MarketCapGraph = () => {
   }
 
   const data = [
-    { x: createTime(14, 30, 45), y: 388200000 },
-    { x: createTime(14, 40, 45), y: 388200000 },
-    { x: createTime(14, 50, 45), y: 387500000 },
-    { x: createTime(15, 0, 45), y: 387500000 },
-    { x: createTime(15, 10, 45), y: 387100000 },
-    { x: createTime(15, 20, 45), y: 387100000 },
-    { x: createTime(15, 30, 45), y: 386400000 },
-    { x: createTime(15, 33, 45), y: 384100000 },
+    { x: createTime(14, 30, 45), y: 388200 },
+    { x: createTime(14, 40, 45), y: 388200 },
+    { x: createTime(14, 50, 45), y: 387500 },
+    { x: createTime(15, 0, 45), y: 387500 },
+    { x: createTime(15, 10, 45), y: 387100 },
+    { x: createTime(15, 20, 45), y: 387100 },
+    { x: createTime(15, 30, 45), y: 386400 },
+    { x: createTime(15, 33, 45), y: 384500 },
   ];
 
   const stringTime = (time) => {
@@ -33,9 +33,9 @@ const MarketCapGraph = () => {
   }
 
   const domainX = [createTime(14, 30, 45), createTime(15, 37, 45)]
-  const domainY = [384000000, 388500000]
+  const domainY = [384000, 388500]
 
-  const tickFormat = (x) => {
+  const tickFormatX = (x) => {
     if (x.getMinutes() % 10 === 0) {
       return stringTime(x);
     }
@@ -52,10 +52,9 @@ const MarketCapGraph = () => {
 
       <Charts
         data={data}
-        domainX={domainX}
-        domainY={domainY}
-        tickFormat={tickFormat}
+        tickFormatX={tickFormatX}
         ticksSize={ticksSize}
+        tickValues={data.map(x => x.x)}
       >
         <VictoryLine
           data={data}
@@ -63,7 +62,6 @@ const MarketCapGraph = () => {
             x: domainX,
             y: domainY
           }}
-          // interpolation="monotoneX"
           scale={{ x: "time", y: "linear" }}
           standalone={false}
           style={styles.lineThree}

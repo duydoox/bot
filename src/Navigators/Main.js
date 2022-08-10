@@ -8,16 +8,13 @@ import TabBar from '../Containers/TabBar'
 import { useSelector } from 'react-redux'
 import Header from '@/Components/Header'
 import { View } from 'react-native'
-import MarketCapGraph from '@/Containers/Market/components/MarketCapGraph'
-import BetGraph from '@/Containers/Market/components/BetGraph'
-import NoBetGraph from '@/Containers/Market/components/NoBetGraph'
+
 const Tab = createBottomTabNavigator()
 
 
 // @refresh reset
 const MainNavigator = () => {
   const page = useSelector(state => state.auth.page)
-  const graph = useSelector(state=>state.market.graph)
   return (
     <View style={{flex: 1}}>
       <Tab.Navigator initialRouteName={page ? page : 'Market'} tabBar={prop => <TabBar {...prop} />}>
@@ -47,16 +44,6 @@ const MainNavigator = () => {
           }}
         />
       </Tab.Navigator >
-      
-      {
-        graph === 'MARKET_CAP' ? 
-        <MarketCapGraph/> :
-        graph === 'BET' ?
-        <BetGraph/> :
-        graph === 'NO_BET'?
-        <NoBetGraph/>:
-        <></>
-      }
     </View>
   )
 }

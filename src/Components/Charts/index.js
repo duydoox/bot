@@ -1,22 +1,19 @@
 import React from 'react'
 import { VictoryAxis, VictoryChart } from "victory-native";
 
-const Charts = ({ data, domainX, domainY, tickFormat, ticksSize, children }) => {
+const Charts = ({tickFormatX, ticksSize, children, tickValues }) => {
   const styles = getStyles(ticksSize)
-  const tickValues = data.map(x => x.x)
   return (
     <VictoryChart>
       <VictoryAxis
         scale="time"
-        // standalone={false}
-        domain={domainX}
         style={styles.axisYears}
         tickValues={tickValues}
-        tickFormat={tickFormat}
+        tickFormat={tickFormatX}
       />
 
       <VictoryAxis dependentAxis
-        domain={domainY}
+        // domain={domainY}
         offsetX={50}
         orientation="left"
         standalone={false}
