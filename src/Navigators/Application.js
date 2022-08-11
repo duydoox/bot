@@ -6,7 +6,7 @@ import { useTheme } from '@/Hooks'
 import MainNavigator from './Main'
 import { navigationRef } from './utils'
 import Login from '../Containers/Login'
-import { useSelector } from 'react-redux'
+import Wellcome from '@/Containers/Wellcome'
 
 const Stack = createStackNavigator()
 
@@ -14,15 +14,14 @@ const Stack = createStackNavigator()
 const ApplicationNavigator = () => {
   const { Layout, darkMode, NavigationTheme } = useTheme()
   const { colors } = NavigationTheme
-  const isLogin = useSelector(state => state.auth.isLogin)
-  // console.log(isLogin, 'lg')
 
   return (
     <SafeAreaView style={[Layout.fill, { backgroundColor: colors.card }]}>
       <NavigationContainer theme={NavigationTheme} ref={navigationRef}>
-        <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} 
-        backgroundColor={colors.card} />
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={isLogin ? 'Main': 'Login'}>
+        <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={colors.card} />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Wellcome" component={Wellcome} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen
             name="Main"

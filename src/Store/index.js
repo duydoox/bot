@@ -16,11 +16,13 @@ import { api } from '@/Services/api'
 import theme from './Theme'
 import auth from './Auth'
 import market from './Market'
+import login from './Login'
 
 const reducers = combineReducers({
   theme,
   auth,
   market,
+  login,
   api: api.reducer,
 })
 
