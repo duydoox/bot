@@ -8,19 +8,13 @@ import Result from './components/Result'
 import HistoryTurn from './components/HistoryTurn'
 import { createStackNavigator } from '@react-navigation/stack'
 import HeaderMarket from './components/HeaderMarket'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { changeGraph } from '@/Store/Market'
-import MarketCapGraph from './components/MarketCapGraph'
-import BetGraph from './components/BetGraph'
-import NoBetGraph from './components/NoBetGraph'
+import Modals from './components/Modal'
 
 const Stack = createStackNavigator()
 
 const Main = () => {
   const styles = useStyles()
-  const graph = useSelector(state => state.market.graph)
-  const dispatch = useDispatch()
+  console.log('mark')
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -29,39 +23,10 @@ const Main = () => {
         <Bet />
         <NoBet />
       </View>
+
       <Result />
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={graph === 'MARKET_CAP' ? true : false}
-        onRequestClose={()=>{
-          dispatch(changeGraph(null))
-        }}
-      >
-        <MarketCapGraph />
-      </Modal>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={graph === 'BET' ? true : false}
-        onRequestClose={()=>{
-          dispatch(changeGraph(null))
-        }}
-      >
-        <BetGraph />
-      </Modal>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={graph === 'NO_BET' ? true : false}
-        onRequestClose={()=>{
-          dispatch(changeGraph(null))
-        }}
-      >
-        <NoBetGraph />
-      </Modal>
+      
+      <Modals/>
     </ScrollView>
   )
 }

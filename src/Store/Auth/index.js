@@ -21,8 +21,8 @@ const slice = createSlice({
   //     api.endpoints.login.matchFulfilled,
   //     (state, { payload }) => {
   //       console.log('payload: ', payload)
-  //       state.token = payload.token.accessToken
-  //       state.page = null
+  //       // state.token = payload.token.accessToken
+  //       // state.page = null
   //     }
   //   )
   // },

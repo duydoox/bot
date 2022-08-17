@@ -2,9 +2,11 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/Hooks'
 import Circle from '../Circle'
+import { useRetrieveQuery } from '@/Services/modules/market'
 
 const Header = ({ title, children }) => {
     const { Images, Colors, Layout } = useTheme()
+    const { data } = useRetrieveQuery()
     return (
         <View style={styles.container}>
             <View style={styles.left}>
@@ -16,17 +18,17 @@ const Header = ({ title, children }) => {
                 {children && children}
             </View>
 
-            <View style={[styles.right, Layout.rowHCenter ]}>
+            <View style={[styles.right, Layout.rowHCenter]}>
                 <View style={[
                     Layout.rowHCenter,
-                    {marginRight: 5}
+                    { marginRight: 5 }
                 ]}>
-                    <Circle status={false}/>
+                    {data && <Circle status={data.data.auto} />}
                     <Text>Tự động</Text>
                 </View>
 
                 <View style={Layout.rowHCenter}>
-                    <Circle status={true}/>
+                    {data && <Circle status={data.data.turnOn} />}
                     <Text>Tắt</Text>
                 </View>
             </View>
@@ -47,6 +49,6 @@ const styles = StyleSheet.create({
 
     },
     right: {
-        
+
     },
 })

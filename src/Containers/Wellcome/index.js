@@ -10,7 +10,7 @@ const Wellcome = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            console.log(data.data , ' --- info')
+            // console.log(data.data , ' --- info')
             navigateAndSimpleReset('Main')
         }
     }, [isSuccess])
@@ -23,8 +23,14 @@ const Wellcome = () => {
     }, [error])
 
     return (
-        <View>
-            <Text>Wellcome</Text>
+        <View style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            <Text style={{
+                fontSize: 30,
+            }}>Wellcome</Text>
         </View>
     )
 }

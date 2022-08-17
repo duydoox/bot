@@ -9,7 +9,7 @@ const Circle = ({status, colorActive = '#D19804'}) => {
             height: 5,
             width: 5,
             borderRadius: 100,
-            backgroundColor: status ? colorActive : '#1FA808',
+            backgroundColor: status ? '#1FA808' : colorActive,
             marginRight: 3
         }
     ]}/>

@@ -8,7 +8,8 @@ export const useStyles = () => {
         const { Images, Colors } = theme
         return StyleSheet.create({
             marketCap: {
-                color: Colors.textLoss
+                color: Colors.textLoss,
+                marginLeft: 3
             },
             Images
         })

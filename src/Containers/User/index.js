@@ -11,6 +11,7 @@ import Seperate from '@/Components/Seperate'
 const User = () => {
   const dispatch = useDispatch()
   const { Layout, Images } = useTheme()
+  console.log('user')
 
   const logout = () => {
     dispatch(resetAuth())
