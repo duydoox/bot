@@ -24,17 +24,21 @@ const Main = () => {
   }
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <View style={{ paddingHorizontal: 10 }}>
-        <History />
-        <Bet />
-        <NoBet />
-      </View>
+    <View style={{flex: 1}}>
+      <HeaderMarket />
 
-      <Result />
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <View style={{ paddingHorizontal: 10 }}>
+          <History />
+          <Bet />
+          <NoBet />
+        </View>
 
-      <Modals />
-    </ScrollView>
+        <Result />
+
+        <Modals />
+      </ScrollView>
+    </View>
   )
 }
 
@@ -47,9 +51,7 @@ const Market = () => {
         component={Main}
         options={
           {
-            // title: 'Market',
-            header: () => <HeaderMarket />
-            // headerShown: false
+            headerShown: false
           }
         } />
       <Stack.Screen

@@ -1,76 +1,96 @@
-import {View, } from 'react-native'
+import { View, } from 'react-native'
 import React from 'react'
 import GraphPage from '@/Components/GraphPage'
 import Titles from '@/Components/Titles'
 import Texts from '@/Components/Texts'
 import { useTheme } from '@/Hooks'
 import Charts from '@/Components/Charts'
-import { VictoryLine } from "victory-native";
+import {VictoryStack, VictoryBar } from "victory-native";
+import { useSelector } from 'react-redux'
 
-const NoBetGraph = () => {
+const MarketCapGraph = () => {
+  const job = useSelector(state=>state.market.job)
+  const notJob = useSelector(state=>state.market.notJob)
   const { Colors } = useTheme()
-  const createTime = (h, m, s) => {
-    const time = new Date()
-    time.setHours(h)
-    time.setMinutes(m)
-    time.setSeconds(s)
-    return time
-  }
 
-  const data = [
-    { x: createTime(14, 30, 45), y: 388200 },
-    { x: createTime(14, 40, 45), y: 388200 },
-    { x: createTime(14, 50, 45), y: 387500 },
-    { x: createTime(15, 0, 45), y: 387500 },
-    { x: createTime(15, 10, 45), y: 387100 },
-    { x: createTime(15, 20, 45), y: 387100 },
-    { x: createTime(15, 30, 45), y: 386400 },
-    { x: createTime(15, 33, 45), y: 384500 },
-  ];
-
-  const stringTime = (time) => {
-    return `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
-  }
-
-  const domainX = [createTime(14, 30, 45), createTime(15, 37, 45)]
-  const domainY = [384000, 388500]
-
-  const tickFormat = (x) => {
-    if (x.getMinutes() % 10 === 0) {
-      return stringTime(x);
+  const setValue = ()=>{
+    const arr = []
+    for(let i = 0; i <= 23; i++){
+      arr.push({x: i, y: 0})
     }
+    return arr
   }
 
-  const ticksSize = ({ tick }) => (tick.getMinutes() % 10 === 0 ? 4 : 0)
+  const fail = setValue()
+  const neww = setValue()
+  const lose = setValue()
+  const win = setValue()
+
+  job?.FAIL.map(item => {
+    // console.log(new Date(item.createdAt).getHours())
+    fail[new Date(item.createdAt).getHours()].y += 1
+  })
+
+  notJob?.NEW.map(item=>{
+    // console.log(new Date(item.createdAt).getHours())
+    neww[new Date(item.createdTime).getHours()].y += 1
+  })
+
+  notJob?.LOSE.map(item=>{
+    // console.log(new Date(item.createdAt).getHours())
+    lose[new Date(item.createdTime).getHours()].y += 1
+  })
+
+  // console.log(notJob?.WIN)
+
+  notJob?.WIN.map(item=>{
+    console.log(new Date(item.createdTime).getDate())
+    win[new Date(item.createdTime).getHours()].y += 1
+  })
+
+  const tickFormatX = (x) => {
+    return x%5===0 ? x : ''
+  }
+
+  const ticksSize = ({ tick }) => (tick % 5 === 0 ? 4 : 0)
 
   return (
     <GraphPage>
-      <View style={{height: 160}}>
+      <View style={{ height: 160 }}>
         <Titles style={{ fontSize: 14 }}>Market Cap</Titles>
         <Texts color={Colors.textLoss}>($3,226,646,352.00)</Texts>
       </View>
 
       <Charts
-        data={data}
-        tickFormat={tickFormat}
+        // data={data2014}
+        tickFormatX={tickFormatX}
         ticksSize={ticksSize}
+        tickValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]}
       >
-        <VictoryLine
-          data={data}
-          domain={{
-            x: domainX,
-            y: domainY
-          }}
-          scale={{ x: "time", y: "linear" }}
-          standalone={false}
-          style={styles.lineThree}
-        />
+        <VictoryStack>
+          <VictoryBar
+            data={fail}
+            style={{data: {fill: '#fa91ca', width: 4}}}
+          />
+          <VictoryBar
+            data={neww}
+            style={{data: {fill: '#faad14', width: 4}}} 
+          />
+          <VictoryBar
+            data={lose}
+            style={{data: {fill: '#ff4d4f', width: 4}}} 
+          />
+          <VictoryBar
+            data={win}
+            style={{data: {fill: '#48c60a', width: 4}}}
+          />
+        </VictoryStack>
       </Charts>
     </GraphPage>
   )
 }
 
-export default NoBetGraph
+export default MarketCapGraph
 
 const styles = {
   lineThree: {
