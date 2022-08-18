@@ -7,8 +7,8 @@ const slice = createSlice({
     initialState: {
         graph: null, // MARKET_CAP, BET, NO_BET
         date: currentDate,
-        job: {},
-        notJob: {}
+        job: null,
+        notJob: null
     },
     reducers: {
         changeGraph: (state, { payload }) => {
@@ -18,24 +18,40 @@ const slice = createSlice({
             state.date = new Date(payload).toISOString().slice(0, 10)
         },
         handleJob: (state, { payload: { data, date } }) => {
-            const job = {
-                new: [],
-                fail: [],
-                running: [],
-                win: [],
-                lost: []
-            }
-            data.data.map(item => {
+            const job = {}
+            data.map(item => {
                 if (new Date(item.createdAt).getDate() === new Date(date).getDate()) {
-                    job[item.status].push(item)
+                    if (job[item.status] === undefined) {
+                        job[item.status] = []
+                    }
+                    else {
+                        job[item.status].push(item)
+                    }
                 }
             })
-            console.log(job)
             state.job = job
+        },
+        handleNotJob: (state, { payload: { data, date } }) => {
+            const job = {
+                total: 0
+            }
+            data.map(item => {
+                if (new Date(item.createdTime).getDate() === new Date(date).getDate()) {
+                    if (job[item.status] === undefined) {
+                        job[item.status] = []
+                    }
+                    else {
+                        job[item.status].push(item)
+                        job.total += 1
+                    }
+
+                }
+            })
+            state.notJob = job
         },
     }
 })
 
-export const { changeGraph, changeDate, handleJob } = slice.actions
+export const { changeGraph, changeDate, handleJob, handleNotJob } = slice.actions
 
 export default slice.reducer

@@ -26,11 +26,12 @@ export const useStyles = () => {
             },
             status: {
                 flex: 1,
-                paddingLeft: 10
+                paddingLeft: 10,
             },
             time: {
                 flex: 1.8,
-                paddingLeft: 10
+                paddingLeft: 10,
+                justifyContent: 'center'
             },
             reason: {
                 flex: 2,

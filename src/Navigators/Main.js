@@ -14,10 +14,10 @@ const Tab = createBottomTabNavigator()
 
 // @refresh reset
 const MainNavigator = () => {
-  const page = useSelector(state => state.auth.page)
+  // const page = useSelector(state => state.auth.page)
   return (
     <View style={{flex: 1}}>
-      <Tab.Navigator initialRouteName={page ? page : 'Market'} tabBar={prop => <TabBar {...prop} />}>
+      <Tab.Navigator initialRouteName={'Market'} tabBar={prop => <TabBar {...prop} />}>
         <Tab.Screen
           name="Market"
           component={Market}

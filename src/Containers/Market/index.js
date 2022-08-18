@@ -9,12 +9,19 @@ import HistoryTurn from './components/HistoryTurn'
 import { createStackNavigator } from '@react-navigation/stack'
 import HeaderMarket from './components/HeaderMarket'
 import Modals from './components/Modal'
+import { useAccountSignalQuery, useNotInJobQuery } from '@/Services/modules/market'
+import { useSelector } from 'react-redux'
 
 const Stack = createStackNavigator()
 
 const Main = () => {
   const styles = useStyles()
-  console.log('mark')
+  const date = useSelector(state => state.market.date)
+  const { isLoading: load1 } = useAccountSignalQuery(date)
+  const { isLoading: load2 } = useNotInJobQuery(date)
+  if (load1 && load2) {
+    return <View style={{ height: '100%', width: '100%', position: 'absolute', backgroundColor: '#fff' }}></View>
+  }
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -25,8 +32,8 @@ const Main = () => {
       </View>
 
       <Result />
-      
-      <Modals/>
+
+      <Modals />
     </ScrollView>
   )
 }
@@ -42,6 +49,7 @@ const Market = () => {
           {
             // title: 'Market',
             header: () => <HeaderMarket />
+            // headerShown: false
           }
         } />
       <Stack.Screen

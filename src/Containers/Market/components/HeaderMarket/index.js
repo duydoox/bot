@@ -6,6 +6,7 @@ import { useStyles } from './styles'
 import { useDispatch } from 'react-redux'
 import { changeGraph } from '@/Store/Market'
 import { useListMarketCapQuery } from '@/Services/modules/market'
+import { convertCurrency } from '@/Util'
 
 const HeaderMarket = () => {
     const dispatch = useDispatch()
@@ -20,9 +21,9 @@ const HeaderMarket = () => {
         <Header title='Market'>
             <TouchableOpacity onPress={() => { dispatch(changeGraph('MARKET_CAP')) }}>
                 <Texts>
-                    Market cap
+                    Market cap&nbsp;
                     <Texts style={styles.marketCap}>
-                        {data && `($${data.data[data.data.length - 1].marketCap.toString()})`}
+                        {data && convertCurrency(data.data[data.data.length - 1].marketCap)}
                     </Texts>
                 </Texts>
             </TouchableOpacity>
