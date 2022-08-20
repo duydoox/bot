@@ -7,6 +7,7 @@ import { useRetrieveQuery } from '@/Services/modules/market'
 const Header = ({ title, children }) => {
     const { Images, Colors, Layout } = useTheme()
     const { data } = useRetrieveQuery()
+
     return (
         <View style={styles.container}>
             <View style={styles.left}>
@@ -29,7 +30,7 @@ const Header = ({ title, children }) => {
 
                 <View style={Layout.rowHCenter}>
                     {data && <Circle status={data.data.turnOn} />}
-                    <Text>Tắt</Text>
+                    <Text>{data?.data.turnOn?'Bật':'Tắt'}</Text>
                 </View>
             </View>
         </View>

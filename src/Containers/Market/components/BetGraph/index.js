@@ -5,52 +5,40 @@ import Titles from '@/Components/Titles'
 import Texts from '@/Components/Texts'
 import { useTheme } from '@/Hooks'
 import Charts from '@/Components/Charts'
-import {VictoryStack, VictoryBar } from "victory-native";
+import { VictoryStack, VictoryBar } from "victory-native";
 import { useSelector } from 'react-redux'
+import { format2degit, convertDate } from '@/Util'
+import { useMemo } from 'react'
+import { calculate } from '@/Util'
 
 const MarketCapGraph = () => {
-  const job = useSelector(state=>state.market.job)
-  const notJob = useSelector(state=>state.market.notJob)
-  const { Colors } = useTheme()
-  const createTime = (h, m, s) => {
-    const time = new Date()
-    time.setHours(h)
-    time.setMinutes(m)
-    time.setSeconds(s)
-    return time
+  const job = useSelector(state => state.market.job)
+  const notJob = useSelector(state => state.market.notJob)
+  const cacu = calculate(job, notJob)
+  const date = useSelector(state => state.market.date)
+  const { Colors, Layout } = useTheme()
+
+  const countByHours = (arr = [], x, nameAtbTime) => {
+    return arr.filter(item =>
+      x === new Date(item[nameAtbTime]).getHours()
+    ).length
   }
 
-  const setValue = ()=>{
-    const arr = []
-    for(let i = 0; i <= 23; i++){
-      arr.push({x: i, y: 0})
+  const initData = (nameAtbTime, arr = []) => {
+    const data = []
+    for (let x = -1; x <= 24; x++) {
+      data.push({ x, y: countByHours(arr, x, nameAtbTime) })
     }
-    return arr
+    return data
   }
 
-  const fail = setValue()
-  const neww = setValue()
-  const lose = setValue()
-  const win = setValue()
-
-  job?.FAIL.map(item => {
-    fail[new Date(item.createdAt).getHours()].y += 1
-  })
-
-  notJob?.NEW.map(item=>{
-    neww[new Date(item.createdTime).getHours()].y += 1
-  })
-
-  notJob?.LOSE.map(item=>{
-    lose[new Date(item.createdTime).getHours()].y += 1
-  })
-
-  notJob?.WIN.map(item=>{
-    win[new Date(item.createdTime).getHours()].y += 1
-  })
+  const fail = useMemo(() => initData('createdAt', job?.FAIL), [job, notJob])
+  const neww = useMemo(() => initData('createdTime', notJob?.NEW), [job, notJob])
+  const lose = useMemo(() => initData('createdTime', notJob?.LOSE), [job, notJob])
+  const win = useMemo(() => initData('createdTime', notJob?.WIN), [job, notJob])
 
   const tickFormatX = (x) => {
-    return x%5===0 ? x : ''
+    return x % 5 === 0 ? format2degit(x) + ` (${convertDate(date).slice(0, 5)})` : ''
   }
 
   const ticksSize = ({ tick }) => (tick % 5 === 0 ? 4 : 0)
@@ -58,32 +46,57 @@ const MarketCapGraph = () => {
   return (
     <GraphPage>
       <View style={{ height: 160 }}>
-        <Titles style={{ fontSize: 14 }}>Market Cap</Titles>
-        <Texts color={Colors.textLoss}>($3,226,646,352.00)</Texts>
+        <Titles style={{ fontSize: 14 }}>Kèo không chơi</Titles>
+        <View style={[
+          Layout.rowHCenter,
+        ]}>
+          <Texts>Thắng:&nbsp;</Texts>
+          <Texts color={Colors.textProfit}>{cacu?.win + ' ' + cacu?.percentWin}</Texts>
+          <View style={{
+            backgroundColor: 'black',
+            borderRadius: 100,
+            width: 2,
+            height: 2,
+            marginHorizontal: 4
+          }}></View>
+
+          <Texts>Thua:&nbsp;</Texts>
+          <Texts color={Colors.textLoss}>{cacu?.lose + ' ' + cacu?.percentLose}</Texts>
+          <View style={{
+            backgroundColor: 'black',
+            borderRadius: 100,
+            width: 2,
+            height: 2,
+            marginHorizontal: 4
+          }}></View>
+
+          <Texts>Kèo mới:&nbsp;</Texts>
+          <Texts color={Colors.inputBorder}>{cacu?.new + ' ' + cacu?.percentNew}</Texts>
+        </View>
       </View>
 
       <Charts
         // data={data2014}
         tickFormatX={tickFormatX}
         ticksSize={ticksSize}
-        tickValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]}
+        tickValues={[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]}
       >
         <VictoryStack>
           <VictoryBar
             data={fail}
-            style={{data: {fill: '#fa91ca', width: 4}}}
+            style={{ data: { fill: '#fa91ca', width: 4 } }}
           />
           <VictoryBar
             data={neww}
-            style={{data: {fill: '#48c60a', width: 4}}}
+            style={{ data: { fill: '#faad14', width: 4 } }}
           />
           <VictoryBar
             data={lose}
-            style={{data: {fill: '#faad14', width: 4}}}
+            style={{ data: { fill: '#ff4d4f', width: 4 } }}
           />
           <VictoryBar
             data={win}
-            style={{data: {fill: '#ff4d4f', width: 4}}}
+            style={{ data: { fill: '#48c60a', width: 4 } }}
           />
         </VictoryStack>
       </Charts>
@@ -92,9 +105,3 @@ const MarketCapGraph = () => {
 }
 
 export default MarketCapGraph
-
-const styles = {
-  lineThree: {
-    data: { stroke: "#2A6FB0", strokeWidth: 2 },
-  }
-}
