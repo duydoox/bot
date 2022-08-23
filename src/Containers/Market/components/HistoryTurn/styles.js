@@ -9,6 +9,7 @@ export const useStyles = () => {
         return StyleSheet.create({
             container: {
                 // marginBottom: 36,
+                flex: 1
             },
             head: {
                 ...Layout.row,
@@ -16,6 +17,11 @@ export const useStyles = () => {
                 paddingVertical: 9,
                 borderWidth: 1,
                 borderColor: Colors.primary
+            },
+            items: {
+                flex: 1,
+                // justifyContent: 'center',
+                // alignItems: 'center',
             },
             item: {
                 ...Layout.row,
