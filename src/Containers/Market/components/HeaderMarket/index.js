@@ -11,7 +11,7 @@ import { convertCurrency } from '@/Util'
 const HeaderMarket = () => {
     const dispatch = useDispatch()
     const styles = useStyles()
-    const { data, error, isLoading, isFetching,isSuccess } = useListMarketCapQuery()
+    const { data, error } = useListMarketCapQuery()
     useEffect(() => {
         if (error) {
             console.log(error, '---error')

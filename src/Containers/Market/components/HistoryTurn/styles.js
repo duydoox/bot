@@ -27,7 +27,9 @@ export const useStyles = () => {
                 ...Layout.row,
                 ...Layout.justifyContentAround,
                 paddingVertical: 14,
-                borderWidth: 1,
+                borderLeftWidth: 1,
+                borderRightWidth: 1,
+                borderBottomWidth: 1,
                 borderColor: '#D9D9D9'
             },
             status: {

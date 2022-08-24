@@ -40,6 +40,7 @@ const store = configureStore({
     const middlewares = getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        warnAfter: 1000
       },
     }).concat(api.middleware)
 

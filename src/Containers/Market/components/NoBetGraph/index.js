@@ -12,6 +12,7 @@ import { useMemo } from 'react'
 import { calculate } from '@/Util'
 import { useDispatch } from 'react-redux'
 import { changeDate } from '@/Store/Market'
+import { RefreshComponent } from '@/Components/Common'
 
 const MarketCapGraph = () => {
   const job = useSelector(state => state.market.job)
@@ -47,87 +48,89 @@ const MarketCapGraph = () => {
   const ticksSize = ({ tick }) => (tick % 5 === 0 ? 4 : 0)
 
   return (
-    <GraphPage>
-      <View style={{ height: 160 }}>
-        <Titles style={{ fontSize: 14 }}>Kèo không chơi</Titles>
-        {/* số kèo thắng thua */}
-        <View style={[
-          Layout.rowHCenter,
-        ]}>
-          <Texts>Thắng:&nbsp;</Texts>
-          <Texts color={Colors.textProfit}>{cacu?.win + ' ' + cacu?.percentWin}</Texts>
-          <View style={{
-            backgroundColor: 'black',
-            borderRadius: 100,
-            width: 2,
-            height: 2,
-            marginHorizontal: 4
-          }}></View>
+    <RefreshComponent>
+      <GraphPage>
+        <View style={{ height: 160 }}>
+          <Titles style={{ fontSize: 14 }}>Kèo không chơi</Titles>
+          {/* số kèo thắng thua */}
+          <View style={[
+            Layout.rowHCenter,
+          ]}>
+            <Texts>Thắng:&nbsp;</Texts>
+            <Texts color={Colors.textProfit}>{cacu?.win + ' ' + cacu?.percentWin}</Texts>
+            <View style={{
+              backgroundColor: 'black',
+              borderRadius: 100,
+              width: 2,
+              height: 2,
+              marginHorizontal: 4
+            }}></View>
 
-          <Texts>Thua:&nbsp;</Texts>
-          <Texts color={Colors.textLoss}>{cacu?.lose + ' ' + cacu?.percentLose}</Texts>
-          <View style={{
-            backgroundColor: 'black',
-            borderRadius: 100,
-            width: 2,
-            height: 2,
-            marginHorizontal: 4
-          }}></View>
+            <Texts>Thua:&nbsp;</Texts>
+            <Texts color={Colors.textLoss}>{cacu?.lose + ' ' + cacu?.percentLose}</Texts>
+            <View style={{
+              backgroundColor: 'black',
+              borderRadius: 100,
+              width: 2,
+              height: 2,
+              marginHorizontal: 4
+            }}></View>
 
-          <Texts>Kèo mới:&nbsp;</Texts>
-          <Texts color={Colors.inputBorder}>{cacu?.new + ' ' + cacu?.percentNew}</Texts>
-        </View>
-        {/* select date */}
-        <View style={{
-          flexDirection: 'row',
-          marginTop: 10,
-          borderWidth: 1,
-          borderColor: Colors.inputBorder,
-          borderRadius: 4,
-          height: 40,
-          paddingHorizontal: 4,
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}
-        >
-          <TextInput style={{
-            fontSize: 17,
-            flex: 1
+            <Texts>Kèo mới:&nbsp;</Texts>
+            <Texts color={Colors.inputBorder}>{cacu?.new + ' ' + cacu?.percentNew}</Texts>
+          </View>
+          {/* select date */}
+          <View style={{
+            flexDirection: 'row',
+            marginTop: 10,
+            borderWidth: 1,
+            borderColor: Colors.inputBorder,
+            borderRadius: 4,
+            height: 40,
+            paddingHorizontal: 4,
+            alignItems: 'center',
+            justifyContent: 'space-between'
           }}
-            onSubmitEditing={({ nativeEvent: { text}}) => { 
-              console.log(text)
-              dispatch(changeDate(text)) 
+          >
+            <TextInput style={{
+              fontSize: 17,
+              flex: 1
             }}
-          />
+              onSubmitEditing={({ nativeEvent: { text } }) => {
+                console.log(text)
+                dispatch(changeDate(text))
+              }}
+            />
+          </View>
         </View>
-      </View>
 
-      <Charts
-        // data={data2014}
-        tickFormatX={tickFormatX}
-        ticksSize={ticksSize}
-        tickValues={[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]}
-      >
-        <VictoryStack>
-          <VictoryBar
-            data={fail}
-            style={{ data: { fill: '#fa91ca', width: 4 } }}
-          />
-          <VictoryBar
-            data={neww}
-            style={{ data: { fill: '#faad14', width: 4 } }}
-          />
-          <VictoryBar
-            data={lose}
-            style={{ data: { fill: '#ff4d4f', width: 4 } }}
-          />
-          <VictoryBar
-            data={win}
-            style={{ data: { fill: '#48c60a', width: 4 } }}
-          />
-        </VictoryStack>
-      </Charts>
-    </GraphPage>
+        <Charts
+          // data={data2014}
+          tickFormatX={tickFormatX}
+          ticksSize={ticksSize}
+          tickValues={[-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]}
+        >
+          <VictoryStack>
+            <VictoryBar
+              data={fail}
+              style={{ data: { fill: '#fa91ca', width: 4 } }}
+            />
+            <VictoryBar
+              data={neww}
+              style={{ data: { fill: '#faad14', width: 4 } }}
+            />
+            <VictoryBar
+              data={lose}
+              style={{ data: { fill: '#ff4d4f', width: 4 } }}
+            />
+            <VictoryBar
+              data={win}
+              style={{ data: { fill: '#48c60a', width: 4 } }}
+            />
+          </VictoryStack>
+        </Charts>
+      </GraphPage>
+    </RefreshComponent>
   )
 }
 

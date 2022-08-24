@@ -4,10 +4,11 @@ import React from 'react'
 const RefreshComponent = ({ onRefresh = ()=>{}, refreshing, style = {}, children, ...other }) => {
   return (
     <ScrollView
-      contentContainerStyle={{ flex: 1, ...style }}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={[{minHeight: '100%'},style]}
       refreshControl={
         <RefreshControl
-          refreshing={onRefresh || false}
+          refreshing={refreshing || false}
           onRefresh={onRefresh}/>
       }
       {...other}

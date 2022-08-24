@@ -21,5 +21,7 @@ export const {
     useRetrieveQuery,
     useNotInJobQuery,
     useAccountSignalQuery,
-    useHistoryQuery
+    useHistoryQuery,
+    useLazyHistoryQuery,
+    usePrefetch,
  } = listMarketCapApi

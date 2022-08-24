@@ -5,4 +5,5 @@ export default build =>
             method: 'GET',
             params: {page, limit}
         }),
+        keepUnusedDataFor: 1,
     })
