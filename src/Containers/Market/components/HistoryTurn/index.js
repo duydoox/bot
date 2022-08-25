@@ -1,4 +1,4 @@
-import { View, FlatList } from 'react-native'
+import { View, FlatList, ActivityIndicator } from 'react-native'
 import React from 'react'
 import Texts from '@/Components/Texts'
 import Titles from '@/Components/Titles'
@@ -7,6 +7,7 @@ import Circle from '@/Components/Circle'
 import { convertDate, convertTime } from '@/Util'
 import { useHistoryQuery } from '@/Services/modules/market'
 import { useState, useEffect } from 'react'
+import { NoData } from '@/Components/Common'
 
 const HistoryTurn = () => {
   const styles = useStyles()
@@ -16,9 +17,11 @@ const HistoryTurn = () => {
       { page, limit: 10 },
       { refetchOnMountOrArgChange: true }
     )
+  // useEffect(()=>{
+  //   console.log(isFetching)
+  // },[page])
   const [fetch, setFetch] = useState('')
   const [datas, setDatas] = useState([])
-  // console.log(data)
 
   const mergeData = (datas, data) => {
     const merge = datas.concat(data)
@@ -48,6 +51,30 @@ const HistoryTurn = () => {
     }
   }
 
+  const Item = ({ item }) => {
+    return (
+      <View style={styles.item}>
+        <View style={[styles.status, styles.statusItem]}>
+          <Circle status={item.turnOn} colorActive='#D31515' />
+          <Texts>{item.turnOn ? 'Bật' : 'Tắt'}</Texts>
+        </View>
+        <View style={styles.time}>
+          <Texts>{convertTime(item.createdAt) + ' ' + convertDate(item.createdAt)}</Texts>
+        </View>
+        <Texts style={[styles.reason]}>{item.reason}</Texts>
+      </View>
+    )
+  }
+
+  const ListFooter = () => {
+    if (fetch === 'end' && isFetching)
+      return (
+        <View style={{ alignItems: 'center', height: 30, justifyContent: 'center' }}>
+          <ActivityIndicator />
+        </View>
+      )
+  }
+
   return (
 
     <View style={styles.container}>
@@ -59,40 +86,21 @@ const HistoryTurn = () => {
 
       <View style={styles.items}>
         {isLoading ?
-          <View>
-            <Texts>Loading ...</Texts>
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <ActivityIndicator />
           </View> :
           <FlatList
             data={datas}
-            renderItem={({ item }) => {
-              return (
-                <View style={styles.item}>
-                  <View style={[styles.status, styles.statusItem]}>
-                    <Circle status={item.turnOn} colorActive='#D31515' />
-                    <Texts>{item.turnOn ? 'Bật' : 'Tắt'}</Texts>
-                  </View>
-                  <View style={styles.time}>
-                    <Texts>{convertTime(item.createdAt) + ' ' + convertDate(item.createdAt)}</Texts>
-                  </View>
-                  <Texts style={[styles.reason]}>{item.reason}</Texts>
-                </View>
-              )
-            }}
             keyExtractor={item => item._id}
-            ListEmptyComponent={
-              <View>
-                <Texts>No Data</Texts>
-              </View>
-            }
+            renderItem={Item}
+            ListFooterComponent={ListFooter}
+            ListEmptyComponent={NoData}
             onEndReached={loadEnd}
+            onEndReachedThreshold={1}
             refreshing={fetch === 'start' && isFetching}
             onRefresh={refresh}
           />
         }
-        {fetch === 'end' && isFetching &&
-          <View style={{ alignItems: 'center', height: 50, justifyContent: 'center', backgroundColor: 'red' }}>
-            <Texts>Loading ...</Texts>
-          </View>}
       </View>
 
     </View>

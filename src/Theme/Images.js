@@ -18,5 +18,6 @@ export default function () {
     i: require('@/Assets/Images/i.png'),
     key: require('@/Assets/Images/key.png'),
     logout: require('@/Assets/Images/logout.png'),
+    datePicker: require('@/Assets/Images/datePicker.png'),
   }
 }

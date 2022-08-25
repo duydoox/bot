@@ -7,11 +7,12 @@ import Titles from '@/Components/Titles'
 import Icon from '@/Components/Icon'
 import { useTheme } from '@/Hooks'
 import Seperate from '@/Components/Seperate'
+import { useState } from 'react'
 
 const User = () => {
+  const [date, setDate] = useState(new Date())
   const dispatch = useDispatch()
-  const { Layout, Images } = useTheme()
-  console.log('user')
+  const { Layout } = useTheme()
 
   const logout = () => {
     dispatch(resetAuth())
@@ -19,13 +20,13 @@ const User = () => {
   }
   return (
     <View style={styles.container}>
-
+      
       <View style={styles.avatar}>
         <Icon
           height={160}
           width={160}
           name='avatar'
-          style={{marginBottom: 10}}/>
+          style={{ marginBottom: 10 }} />
         <Titles color={'#000000'}>Nguyễn Văn Anh</Titles>
       </View>
 
@@ -45,11 +46,11 @@ const User = () => {
           height={16}
           width={16}
           name='key'
-          style={styles.icon}/>
+          style={styles.icon} />
         <Titles color={'#198CB0'}>Đổi mật khẩu</Titles>
       </TouchableOpacity>
 
-      <Seperate/>
+      <Seperate />
 
       <TouchableOpacity onPress={logout}
         style={[Layout.rowHCenter, styles.distance]}>
@@ -57,7 +58,7 @@ const User = () => {
           height={14}
           width={16}
           name='logout'
-          style={styles.icon}/>
+          style={styles.icon} />
         <Titles color={'#6C6C6C'}>Đăng xuất</Titles>
       </TouchableOpacity>
     </View>

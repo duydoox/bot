@@ -13,33 +13,32 @@ import { calculate } from '@/Util'
 import { useDispatch } from 'react-redux'
 import { changeDate } from '@/Store/Market'
 import { RefreshComponent } from '@/Components/Common'
+import { handleDataByStatus, handleDataByHours } from '@/Util'
+import { useAccountSignalQuery, useNotInJobQuery } from '@/Services/modules/market'
 
 const MarketCapGraph = () => {
-  const job = useSelector(state => state.market.job)
-  const notJob = useSelector(state => state.market.notJob)
-  const cacu = calculate(job, notJob)
   const date = useSelector(state => state.market.date)
+  const { data: dataJob, isFetching: fetch1, isLoading: load1, refetch: refetch1 } = useAccountSignalQuery(date)
+  const { data: dataNotJob, isFetching: fetch2, isLoading: load2, refetch: refetch2 } = useNotInJobQuery(date)
+
+  const job = useMemo(() => {
+    if (dataJob)
+      return handleDataByStatus(dataJob.data, 'job', date)
+    return []
+  }, [dataJob])
+
+  const notJob = useMemo(() => {
+    if (dataNotJob)
+      return handleDataByStatus(dataNotJob.data, 'notJob', date)
+    return []
+  }, [dataNotJob])
+
+  const cacu = calculate(job, notJob)
+
+  const dataJobGraph = useMemo(() => handleDataByHours(job, 'job'), [job])
+  const dataNotJobGraph = useMemo(() => handleDataByHours(notJob, 'notJob'), [notJob])
   const { Colors, Layout } = useTheme()
   const dispatch = useDispatch()
-
-  const countByHours = (arr = [], x, nameAtbTime) => {
-    return arr.filter(item =>
-      x === new Date(item[nameAtbTime]).getHours()
-    ).length
-  }
-
-  const initData = (nameAtbTime, arr = []) => {
-    const data = []
-    for (let x = -1; x <= 24; x++) {
-      data.push({ x, y: countByHours(arr, x, nameAtbTime) })
-    }
-    return data
-  }
-
-  const fail = useMemo(() => initData('createdAt', job?.FAIL), [job, notJob])
-  const neww = useMemo(() => initData('createdTime', notJob?.NEW), [job, notJob])
-  const lose = useMemo(() => initData('createdTime', notJob?.LOSE), [job, notJob])
-  const win = useMemo(() => initData('createdTime', notJob?.WIN), [job, notJob])
 
   const tickFormatX = (x) => {
     return x % 5 === 0 ? format2degit(x) + ` (${convertDate(date).slice(0, 5)})` : ''
@@ -48,7 +47,10 @@ const MarketCapGraph = () => {
   const ticksSize = ({ tick }) => (tick % 5 === 0 ? 4 : 0)
 
   return (
-    <RefreshComponent>
+    <RefreshComponent
+      refreshing={!load1 && !load2 && fetch1 || fetch2}
+      onRefresh={() => { refetch1(), refetch2() }}
+    >
       <GraphPage>
         <View style={{ height: 160 }}>
           <Titles style={{ fontSize: 14 }}>Kèo không chơi</Titles>
@@ -86,21 +88,12 @@ const MarketCapGraph = () => {
             borderWidth: 1,
             borderColor: Colors.inputBorder,
             borderRadius: 4,
-            height: 40,
+            height: 30,
             paddingHorizontal: 4,
             alignItems: 'center',
             justifyContent: 'space-between'
           }}
           >
-            <TextInput style={{
-              fontSize: 17,
-              flex: 1
-            }}
-              onSubmitEditing={({ nativeEvent: { text } }) => {
-                console.log(text)
-                dispatch(changeDate(text))
-              }}
-            />
           </View>
         </View>
 
@@ -112,19 +105,19 @@ const MarketCapGraph = () => {
         >
           <VictoryStack>
             <VictoryBar
-              data={fail}
+              data={dataJobGraph.FAIL}
               style={{ data: { fill: '#fa91ca', width: 4 } }}
             />
             <VictoryBar
-              data={neww}
+              data={dataNotJobGraph.NEW}
               style={{ data: { fill: '#faad14', width: 4 } }}
             />
             <VictoryBar
-              data={lose}
+              data={dataNotJobGraph.LOSE}
               style={{ data: { fill: '#ff4d4f', width: 4 } }}
             />
             <VictoryBar
-              data={win}
+              data={dataNotJobGraph.WIN}
               style={{ data: { fill: '#48c60a', width: 4 } }}
             />
           </VictoryStack>

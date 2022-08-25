@@ -17,7 +17,7 @@ export const useStyles = () => {
                 borderBottomColor: '#D9D9D9'
             },
             titleButton: {
-                fontWeight: 'bold',
+                // fontWeight: 'bold',
                 paddingVertical: 6,
                 paddingHorizontal: 18,
                 borderTopLeftRadius: 5,
@@ -55,6 +55,10 @@ export const useStyles = () => {
             },
             time: {
                 flex: 1.4,
+            },
+            priceAll: {
+                color: '#fff',
+                backgroundColor: Colors.primary
             },
             Fonts,
             Layout

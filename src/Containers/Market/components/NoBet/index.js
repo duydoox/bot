@@ -5,16 +5,10 @@ import BetHearder from '../BetHeader'
 import { useStyles } from './styles'
 import { useDispatch } from 'react-redux'
 import { changeGraph } from '@/Store/Market'
-import { useSelector } from 'react-redux'
-import { useMemo } from 'react'
 import { calculate } from '@/Util'
 
-const NoBet = () => {
+const NoBet = ({job, notJob}) => {
   const styles = useStyles()
-  // const date = useSelector(state => state.market.date)
-  const job = useSelector(state => state.market.job)
-  const notJob = useSelector(state => state.market.notJob)
-  // console.log(job)
   const dispatch = useDispatch()
 
   const cacu = calculate(job, notJob)
