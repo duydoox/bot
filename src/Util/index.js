@@ -66,7 +66,7 @@ export const handleDataByStatus = (data, dataName, date) => {
         NEW: [],
         RUNNING: [],
         TURNOFF: [],
-        TURNON: []
+        TURNON: [],
     }
     data.forEach(item => {
         if (new Date(item[keyTime]).getDate() === new Date(date).getDate()) {

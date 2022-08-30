@@ -19,10 +19,10 @@ const Stack = createStackNavigator()
 const Main = () => {
   const styles = useStyles()
   const date = useSelector(state => state.market.date)
-  console.log(date, '+++')
   const { data: dataJob, isFetching: fetch1, isLoading: load1, refetch: refetch1 } = useAccountSignalQuery(date)
   const { data: dataNotJob, isFetching: fetch2, isLoading: load2, refetch: refetch2 } = useNotInJobQuery(date)
-  const { isFetching: fetch3, isLoading: load3, refetch: refetch3 } = useRetrieveQuery(date)
+  const { isFetching: fetch3, isLoading: load3, refetch: refetch3 } = useRetrieveQuery()
+
 
   const refresh = () => {
     refetch1()

@@ -3,14 +3,14 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { changeGraph } from '@/Store/Market'
 
-const GraphPage = ({ children }) => {
+const GraphPage = ({ children}) => {
     const dispatch = useDispatch()
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='rgba(67, 67, 67, 0.25)' />
             <TouchableOpacity
-                style={{height: 170, width: '100%'}}
-                onPress={()=>{dispatch(changeGraph(null))}}
+                style={{ height: 170, width: '100%' }}
+                onPress={() => { dispatch(changeGraph(null)) }}
             >
 
             </TouchableOpacity>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 5,
         height: '100%',
-        width: '100%'
+        width: '100%',
     },
     content: {
         backgroundColor: '#fff',
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 35,
         borderTopRightRadius: 35,
         flex: 1,
-        padding: 15
+        padding: 15,
+        overflow: 'hidden'
     }
 })
