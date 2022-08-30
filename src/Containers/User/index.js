@@ -20,7 +20,7 @@ const User = () => {
   }
   return (
     <View style={styles.container}>
-      
+
       <View style={styles.avatar}>
         <Icon
           height={160}

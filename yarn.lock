@@ -6351,6 +6351,13 @@
     "jscodeshift" "^0.13.1"
     "nullthrows" "^1.1.1"
 
+"react-native-date-picker@^4.2.5":
+  "integrity" "sha512-YjwiMpZEnVVS+ymLvmJDicVZ3pSR+nJHgtAhctMl6fO8f7iRNcYhY427gemlTBf2Ji+XIAK0Agyl255DhaemFw=="
+  "resolved" "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.2.5.tgz"
+  "version" "4.2.5"
+  dependencies:
+    "prop-types" "^15.8.1"
+
 "react-native-flipper@^0.156.0", "react-native-flipper@>=0.100.0":
   "integrity" "sha512-Gh7hahK1sWAl5OD+AtQWWBT45c7FWZkNqZjJwD1w0DlDCwZsAPG0YzTOZJwP8cDclvQEU/utBTlY6JjPeEMuWg=="
   "resolved" "https://registry.npmjs.org/react-native-flipper/-/react-native-flipper-0.156.0.tgz"

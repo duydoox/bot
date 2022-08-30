@@ -1,5 +1,5 @@
-import { View, TextInput } from 'react-native'
-import React from 'react'
+import { View, Image, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import GraphPage from '@/Components/GraphPage'
 import Titles from '@/Components/Titles'
 import Texts from '@/Components/Texts'
@@ -15,9 +15,11 @@ import { changeDate } from '@/Store/Market'
 import { RefreshComponent } from '@/Components/Common'
 import { handleDataByStatus, handleDataByHours } from '@/Util'
 import { useAccountSignalQuery, useNotInJobQuery } from '@/Services/modules/market'
+import DatePickers from '@/Components/DatePickers'
 
 const MarketCapGraph = () => {
   const date = useSelector(state => state.market.date)
+  console.log(date, '----')
   const { data: dataJob, isFetching: fetch1, isLoading: load1, refetch: refetch1 } = useAccountSignalQuery(date)
   const { data: dataNotJob, isFetching: fetch2, isLoading: load2, refetch: refetch2 } = useNotInJobQuery(date)
 
@@ -51,6 +53,7 @@ const MarketCapGraph = () => {
       refreshing={!load1 && !load2 && fetch1 || fetch2}
       onRefresh={() => { refetch1(), refetch2() }}
     >
+      
       <GraphPage>
         <View style={{ height: 160 }}>
           <Titles style={{ fontSize: 14 }}>Kèo không chơi</Titles>
@@ -82,19 +85,7 @@ const MarketCapGraph = () => {
             <Texts color={Colors.inputBorder}>{cacu?.new + ' ' + cacu?.percentNew}</Texts>
           </View>
           {/* select date */}
-          <View style={{
-            flexDirection: 'row',
-            marginTop: 10,
-            borderWidth: 1,
-            borderColor: Colors.inputBorder,
-            borderRadius: 4,
-            height: 30,
-            paddingHorizontal: 4,
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}
-          >
-          </View>
+          <DatePickers date={date}/>
         </View>
 
         <Charts

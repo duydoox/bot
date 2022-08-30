@@ -25,8 +25,8 @@ const MainNavigator = () => {
         />
         <Tab.Screen
           name="Limit"
-          // component={Limit}
-          component={Market}
+          component={Limit}
+          // component={Market}
           options={{ headerShown: false }}
         />
         <Tab.Screen

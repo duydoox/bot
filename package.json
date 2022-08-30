@@ -26,6 +26,7 @@
     "react-i18next": "^11.18.3",
     "react-native": "0.69.3",
     "react-native-chart-kit": "^6.12.0",
+    "react-native-date-picker": "^4.2.5",
     "react-native-flipper": "^0.156.0",
     "react-native-gesture-handler": "^2.5.0",
     "react-native-modal-datetime-picker": "^13.1.2",

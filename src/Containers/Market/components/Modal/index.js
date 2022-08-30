@@ -49,4 +49,4 @@ const Modals = () => {
     )
 }
 
-export default Modals
+export default React.memo(Modals)
