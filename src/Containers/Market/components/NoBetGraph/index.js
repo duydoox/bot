@@ -1,10 +1,10 @@
-import { View, ActivityIndicator } from 'react-native'
-import React, { useState } from 'react'
+import { View, ActivityIndicator, TouchableOpacity } from 'react-native'
+import React from 'react'
 import GraphPage from '@/Components/GraphPage'
 import Titles from '@/Components/Titles'
 import Texts from '@/Components/Texts'
 import { useTheme } from '@/Hooks'
-import { useSelector } from 'react-redux'
+import { useSelector,  } from 'react-redux'
 import { useMemo } from 'react'
 import { calculate } from '@/Util'
 import { RefreshComponent } from '@/Components/Common'
@@ -13,7 +13,8 @@ import { useAccountSignalQuery, useNotInJobQuery } from '@/Services/modules/mark
 import DatePickers from '@/Components/DatePickers'
 import Chart from './Chart'
 
-const MarketCapGraph = () => {
+const NoBetGraph = () => {
+
   const date = useSelector(state => state.market.date)
   const { data: dataJob, isFetching: fetch1, isLoading: load1, refetch: refetch1 } = useAccountSignalQuery(date)
   const { data: dataNotJob, isFetching: fetch2, isLoading: load2, refetch: refetch2 } = useNotInJobQuery(date)
@@ -43,9 +44,11 @@ const MarketCapGraph = () => {
       onRefresh={() => { refetch1(), refetch2() }}
     >
 
-      <GraphPage>
+      <GraphPage
+        isLoading={fetch1 || fetch2}>
         <View style={{ height: 160 }}>
           <Titles style={{ fontSize: 14 }}>Kèo không chơi</Titles>
+          
           <View style={[
             Layout.rowHCenter,
           ]}>
@@ -73,23 +76,14 @@ const MarketCapGraph = () => {
             <Texts color={Colors.inputBorder}>{cacu?.new + ' ' + cacu?.percentNew}</Texts>
           </View>
           {/* select date */}
-          <DatePickers date={date} />
+          <DatePickers date={date}  />
         </View>
 
         <Chart dataJobGraph={dataJobGraph} dataNotJobGraph={dataNotJobGraph} />
-        {
-          !load1 && !load2 && (fetch1 || fetch2) &&
-          <View style={{
-            position: 'absolute', height: '110%', width: '110%',
-            justifyContent: 'center', alignItems: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.5)'
-          }}>
-            <ActivityIndicator />
-          </View>
-        }
+
       </GraphPage>
     </RefreshComponent>
   )
 }
 
-export default MarketCapGraph
+export default NoBetGraph

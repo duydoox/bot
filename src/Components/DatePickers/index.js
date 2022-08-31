@@ -6,7 +6,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useDispatch } from 'react-redux';
 import { changeDate } from '@/Store/Market';
 
-const DatePickers = ({date, ...other}) => {
+const DatePickers = ({date, setLoading = ()=> {}, ...other}) => {
     const { Images, Colors } = useTheme()
     const [isVisible, setIsVisible] = useState(false)
     const dispatch = useDispatch()
@@ -31,6 +31,7 @@ const DatePickers = ({date, ...other}) => {
                 date={new Date(date)}
                 onConfirm={(date) => {
                     setIsVisible(false)
+                    setLoading()
                     dispatch(changeDate(new Date(date).toISOString().slice(0, 10)))
                 }}
                 onCancel={() => {

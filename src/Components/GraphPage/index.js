@@ -1,9 +1,9 @@
-import { StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StatusBar, StyleSheet, TouchableOpacity, View, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { changeGraph } from '@/Store/Market'
 
-const GraphPage = ({ children}) => {
+const GraphPage = ({ children, isLoading = false }) => {
     const dispatch = useDispatch()
     return (
         <View style={styles.container}>
@@ -16,7 +16,18 @@ const GraphPage = ({ children}) => {
             </TouchableOpacity>
             <View style={styles.content}>
                 {children}
+                {
+                    isLoading &&
+                    <View style={{
+                        position: 'absolute', height: '110%', width: '110%',
+                        justifyContent: 'center', alignItems: 'center',
+                        backgroundColor: 'rgba(255, 255, 255, 0.5)'
+                    }}>
+                        <ActivityIndicator />
+                    </View>
+                }
             </View>
+
         </View>
     )
 }

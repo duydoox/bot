@@ -21,6 +21,7 @@ export const {
     useRetrieveQuery,
     useNotInJobQuery,
     useAccountSignalQuery,
+    useLazyAccountSignalQuery,
     useHistoryQuery,
     useLazyHistoryQuery,
     usePrefetch,
