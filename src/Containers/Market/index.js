@@ -47,6 +47,8 @@ const Main = () => {
     return null
   }, [dataJob])
 
+  // console.log(date)
+
   const notJob = useMemo(() => {
     if (dataNotJob)
       return handleDataByStatus(dataNotJob.data, 'notJob', date)
@@ -58,19 +60,17 @@ const Main = () => {
       <ActivityIndicator />
     </View>
   }
-
-  console.log(date, '++++++++++++')
-
   return (
     <View style={{ flex: 1 }}>
       <HeaderMarket />
 
-      {/* <Text>{date}</Text> */}
-      {/* <DatePickers date={date} /> */}
+      {/* <Text>{date}</Text>
+      <DatePickers date={date} /> */}
 
 
       <RefreshComponent
         refreshing={fetch1 || fetch2 || fetch3}
+        // refreshing={false}
         onRefresh={refresh}
       >
         <View style={{ paddingHorizontal: 10 }}>

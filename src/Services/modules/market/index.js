@@ -20,6 +20,7 @@ export const {
     useListMarketCapQuery,
     useRetrieveQuery,
     useNotInJobQuery,
+    useLazyNotInJobQuery,
     useAccountSignalQuery,
     useLazyAccountSignalQuery,
     useHistoryQuery,

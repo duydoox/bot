@@ -17,6 +17,7 @@ const BetGraph = () => {
 
   const date = useSelector(state => state.market.date)
   const { data: dataJob, isFetching: fetch1, isLoading: load1, refetch: refetch1 } = useAccountSignalQuery(date)
+  // const dataJob = null
 
   const job = useMemo(() => {
     if (dataJob)
@@ -40,12 +41,14 @@ const BetGraph = () => {
 
   return (
     <RefreshComponent
-      refreshing={!load1 && fetch1}
+      // refreshing={!load1 && fetch1}
+      refreshing={false}
       onRefresh={() => { refetch1() }}
     >
 
       <GraphPage
-        isLoading={fetch1}>
+        // isLoading={fetch1}
+        >
         <View style={{ height: 160 }}>
           <Titles style={{ fontSize: 14 }}>Kèo chơi</Titles>
           

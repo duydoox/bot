@@ -31,7 +31,7 @@ const DatePickers = ({date, setLoading = ()=> {}, ...other}) => {
                 date={new Date(date)}
                 onConfirm={(date) => {
                     setIsVisible(false)
-                    setLoading()
+                    // setLoading()
                     dispatch(changeDate(new Date(date).toISOString().slice(0, 10)))
                 }}
                 onCancel={() => {
